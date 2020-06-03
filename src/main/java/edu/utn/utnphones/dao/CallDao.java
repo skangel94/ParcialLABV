@@ -1,6 +1,7 @@
 package edu.utn.utnphones.dao;
 
 import edu.utn.utnphones.domain.Call;
+import edu.utn.utnphones.projections.CallsByMonth;
 import edu.utn.utnphones.projections.PriceLastCall;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,7 @@ public interface CallDao extends JpaRepository<Call,Integer> {
 
     @Query(value = "select * from calls c inner join phone_lines pl on c.call_line_id_from = pl.line_id \n" +
             "inner join users u on pl.line_user_id = u.user_id \n" +
-            "where c.call_minute_price > ?1 and u.user_id = ?2 and c.call_id = 4", nativeQuery = true)
+            "where c.call_minute_price > ?1 and u.user_id = ?2", nativeQuery = true)
     List<Call> getCallsByPrice(float price, int userId);
 
 
@@ -34,6 +35,11 @@ public interface CallDao extends JpaRepository<Call,Integer> {
             "limit 1", nativeQuery = true)
     PriceLastCall getPriceLastCall(int userId);
 
+    @Query(value = "select u.user_name as name, u.user_lastname  as lastname, SUM(c.call_duration_seg) as duration from calls c inner join phone_lines pl on c.call_line_id_from = pl.line_id \n" +
+            "inner join users u on pl.line_user_id = u.user_id\n" +
+            "where month(c.call_date) = ?1 and u.user_id = pl.line_user_id\n" +
+            "group by u.user_name ",nativeQuery = true)
+    List<CallsByMonth> getCallsByMonth(int month);
 
 
 }

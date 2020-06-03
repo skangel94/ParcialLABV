@@ -4,6 +4,7 @@ import edu.utn.utnphones.domain.Call;
 
 
 import edu.utn.utnphones.exception.ResourcesNotExistException;
+import edu.utn.utnphones.projections.CallsByMonth;
 import edu.utn.utnphones.projections.PriceLastCall;
 import edu.utn.utnphones.service.CallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class CallController {
 
     public PriceLastCall getPriceLastCall(int userId){
         return callService.getPriceLastCall(userId);
+    }
+
+    public List<CallsByMonth> getCallsByMonth(int month){
+        return callService.getCallsByMonth(month);
     }
 }

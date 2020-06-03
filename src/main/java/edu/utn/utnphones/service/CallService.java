@@ -3,6 +3,7 @@ package edu.utn.utnphones.service;
 import edu.utn.utnphones.dao.CallDao;
 import edu.utn.utnphones.domain.Call;
 import edu.utn.utnphones.exception.ResourcesNotExistException;
+import edu.utn.utnphones.projections.CallsByMonth;
 import edu.utn.utnphones.projections.PriceLastCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,9 @@ public class CallService {
 
     public PriceLastCall getPriceLastCall(int userId){
         return callDao.getPriceLastCall(userId);
+    }
+
+    public List<CallsByMonth> getCallsByMonth(int month){
+        return callDao.getCallsByMonth(month);
     }
 }
