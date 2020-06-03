@@ -46,4 +46,8 @@ public class CallService {
     public List<CallsByMonth> getCallsByMonth(int month){
         return callDao.getCallsByMonth(month);
     }
+
+    public List<Call> getCallsByDuration(int duration){
+        return  callDao.getCallsByDuration(duration);
+    }
 }

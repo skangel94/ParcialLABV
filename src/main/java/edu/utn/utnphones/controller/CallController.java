@@ -50,4 +50,8 @@ public class CallController {
     public List<CallsByMonth> getCallsByMonth(int month){
         return callService.getCallsByMonth(month);
     }
+
+    public List<Call> getCallsByDuration(int duration){
+        return callService.getCallsByDuration(duration);
+    }
 }
